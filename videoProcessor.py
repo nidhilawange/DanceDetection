@@ -3,6 +3,10 @@ import ml as ml
 import json
 import re
 import os
+import camera
+
+
+camera.configCamera()
 
 fileDir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 outputDir = os.path.join(fileDir, "Output")
@@ -12,6 +16,10 @@ videoPath = os.path.join(fileDir, "vid.mp4")
 
 def getFramePath(identifier: str) -> str:
     return os.path.join(outputDir,f'frame_{identifier}.jpg')
+
+def runCam():
+    camera.takePic()
+    ml.runML()
 
 def processVideo():
     #
@@ -61,8 +69,10 @@ def processFrames(files: list[str])->None:
         #
 
 if (__name__ == "__main__"):
-    files = processVideo()
-    processFrames(files)
+    while (True):
+        runCam()
+    #files = processVideo()
+    #processFrames(files)
 
 
 
